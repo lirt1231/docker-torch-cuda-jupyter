@@ -1,0 +1,36 @@
+version: "1"
+services:
+  gpu_0:
+    image: lht/cuda_pytorch_jupyterlab
+    build: .
+    container_name: lab_gpu0
+    restart: unless-stopped
+    ports:
+      - 41231:8888
+    volumes:
+      - data_1:/root/project
+      - settings_1:/root/.jupyter
+    runtime: nvidia
+    environment:
+      NVIDIA_VISIBLE_DEVICES: 0
+    ipc: host
+  gpu_1:
+    image: lht/cuda_pytorch_jupyterlab
+    build: .
+    container_name: lab_gpu1
+    restart: unless-stopped
+    ports:
+      - 41232:8888
+    volumes:
+      - data_2:/root/project
+      - settings_2:/root/.jupyter
+    runtime: nvidia
+    environment:
+      NVIDIA_VISIBLE_DEVICES: 1
+    ipc: host
+
+volumes:
+  data_1:
+  data_2:
+  settings_1:
+  settings_2:
